@@ -1,11 +1,11 @@
-package com.neordinary.global.apiPayload;
+package com.search_filmography.global.apiPayload;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.neordinary.global.apiPayload.code.BaseCode;
-import com.neordinary.global.apiPayload.code.status.SuccessStatus;
+import com.search_filmography.global.apiPayload.code.BaseCode;
+import com.search_filmography.global.apiPayload.code.status.SuccessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

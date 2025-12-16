@@ -1,4 +1,4 @@
-package com.neordinary.global.apiPayload.code;
+package com.search_filmography.global.apiPayload.code;
 
 public interface BaseErrorCode {
     ErrorReasonDTO getReason();

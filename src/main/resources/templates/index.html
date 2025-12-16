@@ -1,53 +1,268 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>김영광 필모그래피 검색 서비스</title>
+    <title>💿 영광대장경...♡ - RETRO EDITION</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        .actor-profile { margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; }
-        .search-area { margin-top: 40px; }
+        /* CSS 변수 설정 */
+        :root {
+            --color-bg-light: #e0e0e0; /* 연한 회색 */
+            --color-bg-frame: #fcfcfc; /* 프레임 내부 흰색 */
+            --color-border-dark: #000000;
+            --color-shadow-gray: #888888;
+            --color-text-main: #1a1a1a;
+            --color-text-sub: #555555;
+            --font-size-base: 0.8rem; /* 기본 글자 크기 (작게) */
+            --font-family-pixel: 'Dotum', 'Malgun Gothic', monospace; /* 픽셀 느낌을 위한 폰트 */
+        }
+
+        /* 🎨 전체 배경 및 기본 폰트 설정 */
+        body {
+            background-color: var(--color-bg-light);
+            font-family: var(--font-family-pixel);
+            color: var(--color-text-main);
+            padding: 20px;
+            font-size: var(--font-size-base); /* 기본 폰트 사이즈 적용 */
+        }
+
+        /* 🖼️ 메인 프레임 (레트로/픽셀아트 느낌) */
+        .minihompy-frame {
+            max-width: 900px;
+            margin: auto;
+            border: 5px solid var(--color-border-dark);
+            box-shadow: 8px 8px 0 var(--color-shadow-gray); /* 굵은 그림자 */
+            background-color: var(--color-bg-frame);
+            padding: 10px;
+            border-radius: 0; /* 각진 모서리 */
+            letter-spacing: -0.5px; /* 글자 간격 조정 */
+        }
+
+        /* 👑 타이틀 */
+        .minihompy-frame h1 {
+            font-size: 1.5rem; /* 제목도 작게 */
+            color: var(--color-border-dark);
+            border-bottom: 2px solid var(--color-border-dark);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* 2단 레이아웃 */
+        .main-wrapper {
+            display: flex;
+            gap: 15px;
+            padding: 5px;
+        }
+
+        /* 👤 왼쪽 사이드바 (프로필 영역) */
+        .sidebar-left {
+            flex: 0 0 200px; /* 폭 좁게 */
+            padding: 10px;
+            background-color: #f0f0f0; /* 연한 회색 */
+            border: 2px solid var(--color-border-dark);
+            border-radius: 0;
+            text-align: center;
+        }
+        .sidebar-left h3 {
+            font-size: 1rem;
+            border-bottom: 1px dashed #aaa;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+            color: var(--color-border-dark);
+        }
+        .profile-image {
+            width: 100px; /* 이미지 크기 줄임 */
+            height: 100px;
+            border: 2px solid var(--color-border-dark);
+            border-radius: 0;
+            box-shadow: 1px 1px 0 #555;
+            image-rendering: pixelated; /* 픽셀화 시도 (브라우저 지원에 따라 다름) */
+        }
+        .sidebar-left p {
+            font-size: 0.7rem; /* 프로필 텍스트 매우 작게 */
+            margin-bottom: 3px;
+        }
+
+        /* 📜 오른쪽 콘텐츠 영역 */
+        .content-main {
+            flex-grow: 1;
+            padding: 15px;
+            border: 2px solid var(--color-border-dark);
+            border-radius: 0;
+            background-color: #fff;
+        }
+
+        /* 🔍 검색 섹션 (팝업/창 느낌) */
+        .search-popup {
+            background-color: #ffffff;
+            border: 2px solid var(--color-border-dark);
+            padding: 15px;
+            border-radius: 0;
+            box-shadow: 3px 3px 0 #555;
+        }
+        .content-main h2 {
+            font-size: 1.2rem;
+            color: var(--color-border-dark);
+            margin-bottom: 15px;
+            padding-left: 0;
+        }
+
+        /* 🕹️ 버튼 스타일 */
+        .btn-pixel {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border: 2px solid var(--color-border-dark);
+            border-radius: 0;
+            background-color: #c0c0c0; /* 회색 버튼 */
+            color: var(--color-border-dark);
+            font-weight: bold;
+            box-shadow: 2px 2px 0 #555;
+            transition: none; /* 트랜지션 제거 */
+        }
+        .btn-pixel:hover {
+            background-color: #a0a0a0;
+            box-shadow: 3px 3px 0 #333;
+            color: var(--color-border-dark);
+            transform: translate(-1px, -1px);
+        }
+
+        /* 입력 필드 스타일 */
+        .form-control {
+            font-size: 0.8rem;
+            border: 1px solid var(--color-border-dark);
+            border-radius: 0;
+            box-shadow: inset 1px 1px 0 #555;
+            padding: 4px 8px;
+        }
+
+        /* 📝 검색 결과 카드 스타일 */
+        .card-pixel {
+            border: 1px solid var(--color-border-dark);
+            border-radius: 0;
+            box-shadow: 1px 1px 0 #555;
+            background-color: #f9f9f9;
+            transition: none;
+        }
+        .card-pixel:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0 #333;
+        }
+        .card-pixel .card-title a {
+            font-size: 1rem;
+            text-decoration: none;
+            color: var(--color-border-dark);
+            font-weight: bold;
+        }
+        .card-pixel .card-text,
+        .card-pixel .card-text small {
+            font-size: 0.75rem; /* 본문 텍스트도 작게 */
+            margin-bottom: 2px;
+        }
+        .badge-pixel {
+            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 0;
+            border: 1px solid var(--color-border-dark);
+            font-weight: normal;
+        }
+
+        /* 부트스트랩 오버라이드 */
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .alert {
+            font-size: 0.8rem;
+            padding: 8px 10px;
+            border-radius: 0;
+            border: 1px solid var(--color-border-dark);
+            background-color: #f0f0f0;
+            box-shadow: 1px 1px 0 #ccc;
+        }
     </style>
 </head>
 <body>
 
-<header style="background-color: #e9ecef; padding: 10px; text-align: center;">
-</header>
-<main class="container">
-    <section class="actor-profile shadow-sm">
-        <h1 class="mb-3">✨ 배우 김영광 필모그래피</h1>
-        <p>나만의 작품창고><</p>
-    </section>
+<div class="minihompy-frame">
+    <header style="text-align: center; margin-bottom: 15px;">
+        <h1 class="text-center">
+            💿영광대장경...♡💿
+        </h1>
+    </header>
 
-    <section class="search-area">
-        <h2 class="mb-4">🔍 작품 검색 및 필터링</h2>
+    <div class="main-wrapper">
+        <aside class="sidebar-left">
+            <h3 class="mb-2">🌟배우 정보</h3>
+            <img alt="배우 프로필"
+                 class="img-fluid mb-2 profile-image"
+                 src="/img.png"
+                 th:src="@{/img.png}">
+            <p style="font-weight: bold;">김영광 (KIM YOUNG KWANG)</p>
+            <p style="color: var(--color-text-sub);">직업: 배우, 모델</p>
 
-        <form action="/filmo/search" method="get" class="row g-3">
+            <hr style="border-top: 1px dashed #aaa; margin: 15px 0;">
 
-            <div class="col-md-6">
-                <label for="keyword" class="form-label">제목/배역명 검색</label>
-                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="영화/드라마 제목 또는 배역명">
-            </div>
+            <a href="/filmo/genres" class="btn btn-pixel w-100">
+                🎞️ 장르별 목록
+            </a>
+        </aside>
 
-            <div class="col-md-3">
-                <label for="year" class="form-label">공개 연도</label>
-                <input type="number" class="form-control" id="year" name="year" placeholder="YYYY">
-            </div>
+        <main class="content-main">
+            <section class="search-area mb-4 search-popup">
+                <h2 class="mb-3">♡작품검색♡</h2>
 
-            <div class="col-md-3 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100">검색</button>
-            </div>
+                <form action="/filmo/search" method="get" class="row g-2">
+                    <div class="col-md-8">
+                        <label for="keyword" class="form-label">제목/배역명 검색</label>
+                        <input type="text" class="form-control" id="keyword" name="keyword" th:value="${keyword}" placeholder="작품 또는 배역명을 입력">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-pixel w-100">검색 실행</button>
+                    </div>
+                </form>
+            </section>
 
-            <div class="col-12 mt-4">
-                <a href="/filmo/genres" class="btn btn-outline-secondary">장르별 검색 페이지로 이동</a>
-            </div>
+            <section class="search-results mt-4" th:if="${results}">
+                <h2 class="mb-3">📋 검색 결과 목록</h2>
 
-        </form>
-    </section>
-</main>
+                <div class="alert alert-info" role="alert" th:if="${keyword != null and keyword != ''}">
+                    검색어: <strong th:text="${keyword}"></strong>
+                </div>
 
-<footer style="background-color: #e9ecef; padding: 10px; text-align: center; margin-top: 30px;">
+                <div class="row row-cols-1 row-cols-md-2 g-3">
+                    <div class="col" th:each="item : ${results}">
+                        <div class="card card-pixel h-100">
+                            <div class="card-body p-2">
+                                <h5 class="card-title mb-1">
+                                    <a th:if="${item.type == 'Movie'}" th:href="@{/movie/detail(id=${item.id})}" th:text="${item.title}"></a>
+                                    <a th:if="${item.type == 'Drama'}" th:href="@{/drama/detail(id=${item.id})}" th:text="${item.title}"></a>
+                                </h5>
+                                <p class="card-text mb-1">
+                                    <span class="badge badge-pixel" th:classappend="${item.type == 'Movie' ? 'bg-secondary' : 'bg-dark'}" th:text="${item.type}"></span>
+                                    <span th:text="${item.releaseYear}"></span> 년도
+                                </p>
+                                <p class="card-text text-dark mb-1">
+                                    <small>배역명: <strong th:text="${item.roleName}"></strong></small>
+                                </p>
+                                <p class="card-text"><small class="text-muted" th:text="${item.genreName}"></small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${#lists.isEmpty(results)}" class="text-center my-4">
+                    <p class="lead" style="color: var(--color-text-sub); font-weight: bold; font-size: 0.9rem;">검색 결과가 없습니다. 🥺</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<footer style="background-color: #333; color: #ccc; padding: 8px; text-align: center; margin-top: 20px; font-size: 0.7rem;">
+    &copy; 2024. M-FILMO. All rights reserved.
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

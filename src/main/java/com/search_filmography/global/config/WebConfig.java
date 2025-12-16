@@ -1,4 +1,4 @@
-package com.neordinary.global.config;
+package com.search_filmography.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

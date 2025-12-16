@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<main class="container py-5" xmlns:th="http://www.w3.org/1999/xhtml">
+    <h1 class="mb-4 text-primary">영화 상세 정보</h1>
+
+    <div class="card p-4 shadow-lg">
+        <h2 th:text="${movie.title}" class="card-title mb-3"></h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>개봉일:</strong> <span th:text="${movie.openDate}"></span></p>
+                <p><strong>관객 수 (count):</strong> <span th:text="${movie.count}"></span> 명</p>
+                <p><strong>평점 (rating):</strong> <span th:text="${movie.rating}"></span> / 10</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>장르:</strong>
+                    <span th:each="genre : ${movie.genres}" class="badge bg-info text-dark me-1" th:text="${genre.name}"></span>
+                </p>
+                <p><strong>김영광 배역:</strong> <strong class="text-danger" th:text="${movie.role.roleName}"></strong></p>
+            </div>
+        </div>
+    </div>
+
+</main>

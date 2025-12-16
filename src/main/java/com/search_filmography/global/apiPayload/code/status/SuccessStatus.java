@@ -1,8 +1,7 @@
-package com.neordinary.global.apiPayload.code.status;
+package com.search_filmography.global.apiPayload.code.status;
 
-
-import com.neordinary.global.apiPayload.code.BaseCode;
-import com.neordinary.global.apiPayload.code.ReasonDTO;
+import com.search_filmography.global.apiPayload.code.BaseCode;
+import com.search_filmography.global.apiPayload.code.ReasonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

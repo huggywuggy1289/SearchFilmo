@@ -1,7 +1,7 @@
-package com.neordinary.global.apiPayload.exception;
+package com.search_filmography.global.apiPayload.exception;
 
 
-import com.neordinary.global.apiPayload.code.status.ErrorStatus;
+import com.search_filmography.global.apiPayload.code.status.ErrorStatus;
 
 public class GeneralException extends RuntimeException {
 

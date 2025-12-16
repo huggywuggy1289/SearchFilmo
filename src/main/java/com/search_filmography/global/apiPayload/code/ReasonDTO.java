@@ -1,4 +1,4 @@
-package com.neordinary.global.apiPayload.code;
+package com.search_filmography.global.apiPayload.code;
 
 import lombok.Builder;
 import lombok.Getter;

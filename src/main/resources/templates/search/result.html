@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<main class="container py-5" xmlns:th="http://www.w3.org/1999/xhtml">
+    <h1 class="mb-4">통합 검색 결과</h1>
+
+    <div class="alert alert-info" role="alert" th:if="${keyword != null and keyword != '' or year != null}">
+
+        <span th:if="${keyword != null and keyword != ''}">
+            검색어: <span th:text="${keyword}"></span>
+        </span>
+
+        <span th:if="${keyword != null and keyword != '' and year != null}">,</span>
+
+        <span th:if="${year != null}">
+            연도: <span th:text="${year}"></span>
+        </span>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="item : ${results}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a th:if="${item.type == 'Movie'}" th:href="@{/movie/detail(id=${item.id})}" th:text="${item.title}"></a>
+                        <a th:if="${item.type == 'Drama'}" th:href="@{/drama/detail(id=${item.id})}" th:text="${item.title}"></a>
+                    </h5>
+                    <p class="card-text">
+                        <span class="badge bg-secondary" th:text="${item.type}"></span>
+                        <span th:text="${item.releaseYear}"></span> 개봉/방영
+                    </p>
+                    <p class="card-text text-success">
+                        <small>배역명: <strong th:text="${item.roleName}"></strong></small>
+                    </p>
+                    <p class="card-text"><small class="text-muted" th:text="${item.genreName}"></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(results)}" class="text-center my-5">
+        <p class="lead">검색 결과가 없습니다.</p>
+    </div>
+</main>
