@@ -1,0 +1,13 @@
+package com.search_filmography;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SearchFilmographyApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
