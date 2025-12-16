@@ -18,7 +18,4 @@ public class Movie {
     private Float rating; // 별점
     @OneToMany(mappedBy = "movie")
     private List<MovieGenre> genres;
-
-    // 접속 URL추가
-    private String Url;
 }

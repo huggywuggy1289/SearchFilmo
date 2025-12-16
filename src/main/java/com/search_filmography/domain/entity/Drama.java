@@ -16,7 +16,4 @@ public class Drama {
     private Long drama_id; // 드라마코드
     private String title; // 드라마제목
     private LocalDate openDate; // 개봉일
-
-    // 접속 URL추가
-    private String Url;
 }

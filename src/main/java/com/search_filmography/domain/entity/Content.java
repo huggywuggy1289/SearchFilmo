@@ -1,16 +1,17 @@
 package com.search_filmography.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Content {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Content {
 
     @Id
-    @GeneratedValue // 기본키 지정안하면 오류남.
+    @GeneratedValue
     private Long id;
-    private String url;
+
+    @Column(nullable = false)
+    private String contentUrl;
 }

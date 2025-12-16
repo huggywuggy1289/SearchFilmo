@@ -1,6 +1,7 @@
 package com.search_filmography.domain.controller;
 
 import com.search_filmography.domain.dto.FilmographyResult;
+import com.search_filmography.domain.entity.Content;
 import com.search_filmography.domain.entity.Genre;
 import com.search_filmography.domain.entity.Role;
 import com.search_filmography.domain.service.SearchFilmoService;
@@ -38,6 +39,7 @@ public class SearchFilmoController {
     @GetMapping("/goto/{contentId}")
     public String goTo(@PathVariable Long contentId){
 
-        Drama.drama = SearchFilmoService.get
+
+        return null;
     }
 }
