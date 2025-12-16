@@ -5,6 +5,7 @@ import com.search_filmography.domain.entity.Genre;
 import com.search_filmography.domain.entity.Role;
 import com.search_filmography.domain.service.SearchFilmoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -32,5 +33,11 @@ public class SearchFilmoController {
         model.addAttribute("results", results);
 
         return "index";
+    }
+
+    @GetMapping("/goto/{contentId}")
+    public String goTo(@PathVariable Long contentId){
+
+        Drama.drama = SearchFilmoService.get
     }
 }
