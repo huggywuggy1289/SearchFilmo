@@ -4,6 +4,8 @@ import com.search_filmography.domain.dto.FilmographyResult;
 import com.search_filmography.domain.entity.Content;
 import com.search_filmography.domain.entity.Genre;
 import com.search_filmography.domain.entity.Role;
+import com.search_filmography.domain.repository.ContentRepository;
+import com.search_filmography.domain.service.ContentService;
 import com.search_filmography.domain.service.SearchFilmoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.WebProperties;
@@ -17,6 +19,7 @@ import java.util.List;
 public class SearchFilmoController {
 
     private final SearchFilmoService searchFilmoService;
+    private final ContentService contentService;
 
     @GetMapping({"/"})
     public String home() {
@@ -38,8 +41,6 @@ public class SearchFilmoController {
 
     @GetMapping("/goto/{contentId}")
     public String goTo(@PathVariable Long contentId){
-
-
-        return null;
+        return "redirect:" + contentService.getContentUrl(contentId);
     }
 }

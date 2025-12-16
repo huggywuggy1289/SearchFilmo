@@ -1,8 +1,11 @@
 package com.search_filmography.domain.repository;
 
+import com.search_filmography.domain.entity.Content;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ContentRepository {
+import java.util.Optional;
 
+@Repository
+public interface ContentRepository extends JpaRepository<Content, Long> {
 }

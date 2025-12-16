@@ -9,7 +9,7 @@ import java.text.DateFormat;
 import java.time.LocalDate;
 
 @Entity
-public class Drama {
+public class Drama extends Content {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

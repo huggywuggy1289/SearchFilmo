@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class Movie {
+public class Movie extends Content {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

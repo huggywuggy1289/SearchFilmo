@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Content {
 
