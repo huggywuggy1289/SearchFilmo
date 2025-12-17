@@ -9,8 +9,7 @@ import java.util.List;
 @Entity
 public class Movie extends Content {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id", unique = true)
     private Long movie_id; // 영화코드
     private String title; // 영화제목
     private LocalDate openDate; // 개봉일
